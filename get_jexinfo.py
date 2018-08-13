@@ -40,15 +40,11 @@ if __name__ == '__main__':
 
 jex=pd.read_csv('jex.csv',encoding='gb18030')
 NowTime=datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-jexbtc=jex[jex.loc[:,'交易对']=='jex/btc'].iloc[0,3]
-ethbtc=jex[jex.loc[:,'交易对']=='eth/btc'].iloc[0,3]
-ltcbtc=jex[jex.loc[:,'交易对']=='ltc/btc'].iloc[0,3]
-hbetf=jex[jex.loc[:,'交易对']=='火币ETF'].iloc[0,3]
-bnetf=jex[jex.loc[:,'交易对']=='币安ETF'].iloc[0,3]
-btcusdt=jex[jex.loc[:,'交易对']=='btc/usdt'].iloc[0,3]
-ethusdt=jex[jex.loc[:,'交易对']=='eth/usdt'].iloc[0,3]
-bnbusdt=jex[jex.loc[:,'交易对']=='BNB/USDT'].iloc[0,3]
-selfbb=jexbtc+ethbtc+ltcbtc+hbetf+bnetf+btcusdt+ethusdt+bnbusdt
+bb=['jex/btc','eth/btc','ltc/btc','火币ETF','币安ETF','btc/usdt','eth/usdt','BNB/USDT']
+selfbb=0
+for b in bb:
+	selfbb+=jex[jex.loc[:,'交易对']==b].iloc[0,3]
+
 a=sum(jex.iloc[:25,-1])*0.02+selfbb*0.98
 b=sum(jex.iloc[25:,-1])
 c=(sum(jex.iloc[:25,-1])-a)/49
